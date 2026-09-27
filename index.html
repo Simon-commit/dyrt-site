@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="dyrt builds open-source software for the Roblox trading community, including the RoLens extension.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>dyrt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #f3f4f1;
+    --surface: #ffffff;
+    --ink: #121513;
+    --muted: #5e6660;
+    --faint: #8a918b;
+    --rule: #dcdfd9;
+    --accent: #0b7f63;
+    --accent-soft: rgba(11, 127, 99, 0.09);
+    --lens-a: #10b981;
+    --lens-b: #06b6d4;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Geist", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #0e1110;
+      --surface: #161a18;
+      --ink: #e9ece8;
+      --muted: #9aa39c;
+      --faint: #6d756f;
+      --rule: #262c29;
+      --accent: #3fd3a6;
+      --accent-soft: rgba(63, 211, 166, 0.1);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #0e1110;
+    --surface: #161a18;
+    --ink: #e9ece8;
+    --muted: #9aa39c;
+    --faint: #6d756f;
+    --rule: #262c29;
+    --accent: #3fd3a6;
+    --accent-soft: rgba(63, 211, 166, 0.1);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 16px/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+    padding-inline: 20px;
+  }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 960px; margin-inline: auto; }
+
+  /* Header */
+  .top {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding-block: 28px;
+  }
+  .mark { font: 700 22px/1 var(--display); letter-spacing: -0.03em; text-decoration: none; }
+  .mark span { color: var(--accent); }
+  .nav { display: flex; gap: 24px; font-size: 14px; }
+  .nav a { text-decoration: none; color: var(--muted); }
+  .nav a:hover { color: var(--ink); }
+
+  /* Hero */
+  .hero { padding-block: 72px 88px; display: grid; gap: 28px; }
+  .eyebrow {
+    font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint);
+  }
+  h1 {
+    margin: 0; max-width: 16ch;
+    font: 700 clamp(40px, 7vw, 76px)/1.02 var(--display);
+    letter-spacing: -0.035em; text-wrap: balance;
+  }
+  .lede { margin: 0; max-width: 56ch; font-size: 18px; color: var(--muted); }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 999px; font-size: 15px; font-weight: 500; text-decoration: none;
+    border: 1px solid var(--rule); transition: border-color .15s, background .15s;
+  }
+  .btn:hover { border-color: var(--muted); }
+  .btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* Section scaffold */
+  section { padding-block: 64px; border-top: 1px solid var(--rule); }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 36px; }
+  h2 { margin: 0; font: 700 28px/1.15 var(--display); letter-spacing: -0.02em; }
+
+  /* Flagship */
+  .flag { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+  .flag-title { display: flex; align-items: center; gap: 14px; }
+  .flag-title h3 { margin: 0; font: 700 34px/1 var(--display); letter-spacing: -0.03em; }
+  .lens-icon { width: 44px; height: 44px; flex: none; }
+  .flag p { margin: 18px 0 0; max-width: 52ch; color: var(--muted); }
+  .facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 8px 32px; margin: 28px 0 0; }
+  .facts dt { font: 500 11px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .facts dd { margin: 6px 0 0; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .flag .cta { margin-top: 28px; }
+
+  /* Offer mock: one Roblox offer row with RoLens chips */
+  .mock {
+    margin: 0; width: 100%;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 14px;
+    padding: 18px; display: grid; gap: 10px; box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 18px 40px -28px rgba(0,0,0,.25);
+  }
+  .mock-head { display: flex; justify-content: space-between; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--faint); padding-bottom: 6px; }
+  .row {
+    display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center;
+    padding: 8px; border-radius: 10px;
+  }
+  .row:nth-child(odd) { background: var(--accent-soft); }
+  .thumb { width: 40px; height: 40px; border-radius: 8px; background: linear-gradient(135deg, var(--rule), var(--paper)); border: 1px solid var(--rule); }
+  .row b { display: block; font-weight: 500; font-size: 14px; line-height: 1.3; }
+  .row small { font: 400 12px/1.3 var(--mono); color: var(--faint); font-variant-numeric: tabular-nums; }
+  .chip {
+    font: 500 12px/1 var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap;
+    padding: 6px 8px; border-radius: 6px; border: 1px solid var(--rule); background: var(--paper);
+  }
+  .chip i { font-style: normal; color: var(--accent); margin-left: 6px; }
+  .total { display: flex; justify-content: space-between; padding: 12px 8px 2px; border-top: 1px solid var(--rule); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .total strong { font-family: var(--mono); font-weight: 500; }
+
+  /* Changelog */
+  .log { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+  .log li { display: grid; grid-template-columns: 88px 1fr; gap: 20px; padding-block: 14px; border-bottom: 1px solid var(--rule); }
+  .log li:last-child { border-bottom: 0; }
+  .log code { font: 500 13px/1.6 var(--mono); color: var(--accent); }
+  .log span { color: var(--muted); }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .about p { margin: 0 0 16px; max-width: 58ch; color: var(--muted); }
+  .principles { margin: 0; padding: 0; list-style: none; display: grid; gap: 18px; }
+  .principles strong { display: block; font-weight: 600; }
+  .principles span { color: var(--muted); font-size: 15px; }
+
+  footer {
+    border-top: 1px solid var(--rule); padding-block: 28px 40px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--faint);
+  }
+  footer a { text-decoration: none; color: var(--muted); }
+  footer a:hover { color: var(--ink); }
+
+  @media (max-width: 760px) {
+    .flag, .about { grid-template-columns: 1fr; gap: 36px; }
+    .hero { padding-block: 40px 56px; }
+    section { padding-block: 48px; }
+    .nav { gap: 16px; }
+    .log li { grid-template-columns: 64px 1fr; gap: 12px; }
+  }
+  @media (max-width: 420px) {
+    .facts { grid-template-columns: repeat(2, auto); }
+    .nav a:first-child { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#top" aria-label="dyrt, home">dyrt<span>.</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/Simon-commit">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div class="eyebrow">Independent software</div>
+      <h1>Precise tools for the Roblox economy.</h1>
+      <p class="lede">dyrt builds open-source software for traders and collectors. Every project is auditable, free of tracking, and designed to stay out of the way until it is needed.</p>
+      <div class="cta">
+        <a class="btn primary" href="#work">View RoLens</a>
+        <a class="btn" href="https://github.com/Simon-commit/rolens">Source code</a>
+      </div>
+    </div>
+
+    <section id="work" aria-labelledby="work-h">
+      <div class="sec-head">
+        <h2 id="work-h">Selected work</h2>
+        <span class="eyebrow">Flagship</span>
+      </div>
+
+      <div class="flag">
+        <div>
+          <div class="flag-title">
+            <svg class="lens-icon" viewBox="0 0 128 128" aria-hidden="true">
+              <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10b981"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+              <rect width="128" height="128" rx="34.7" fill="url(#lg)"/>
+              <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="55.5" cy="55.5" r="28.8" stroke-width="12.8"/>
+                <path d="M77.9 77.9 98.1 98.1" stroke-width="14.9"/>
+                <path d="M43.7 61.9 55.5 50.1 67.2 61.9" stroke-width="10.7"/>
+              </g>
+            </svg>
+            <h3>RoLens</h3>
+          </div>
+          <p>A Chrome extension that places live Rolimon's and RoUtility values directly inside Roblox trades, item pages and inventories. Values, RAP, demand and USD estimates appear where decisions are made, without resizing a single element of the page.</p>
+          <p>RoLens reads trade data with read-only requests and never sends, accepts or declines a trade on your behalf.</p>
+          <dl class="facts">
+            <div><dt>Platform</dt><dd>Chrome, MV3</dd></div>
+            <div><dt>Licence</dt><dd>MIT</dd></div>
+            <div><dt>Tests</dt><dd>128 passing</dd></div>
+          </dl>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/Simon-commit/rolens">View on GitHub</a>
+          </div>
+        </div>
+
+        <figure class="mock" aria-label="Illustration of a Roblox trade offer annotated by RoLens">
+          <div class="mock-head"><span>Your offer · illustrative</span><span>Value</span></div>
+          <div class="row"><div class="thumb"></div><div><b>Valkyrie Helm</b><small>RAP 41,302</small></div><span class="chip">45K<i>$135</i></span></div>
+          <div class="row"><div class="thumb"></div><div><b>Clockwork's Shades</b><small>RAP 14,186</small></div><span class="chip">16.5K<i>$50</i></span></div>
+          <div class="row"><div class="thumb"></div><div><b>Blackvalk</b><small>RAP 6,940</small></div><span class="chip">7.2K<i>≈$22</i></span></div>
+          <div class="total"><span>Offer total</span><strong>68,700 · $207</strong></div>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="log-h">
+      <div class="sec-head">
+        <h2 id="log-h">Release notes</h2>
+        <span class="eyebrow">RoLens</span>
+      </div>
+      <ul class="log">
+        <li><code>0.6.4</code><span>The item card collapses to a single line, and the choice is remembered.</span></li>
+        <li><code>0.6.0</code><span>Values on profile inventories and trade previews in the Trades list.</span></li>
+        <li><code>0.5.0</code><span>A full revision of the interface, the hover card and every line of copy.</span></li>
+        <li><code>0.4.0</code><span>Either data source can run on its own, and a redrawn lens mark.</span></li>
+        <li><code>0.3.0</code><span>RoUtility USD estimates, confidence levels and value comparison.</span></li>
+      </ul>
+    </section>
+
+    <section id="about" aria-labelledby="about-h">
+      <div class="sec-head"><h2 id="about-h">About</h2></div>
+      <div class="about">
+        <div>
+          <p>dyrt is the studio name of Simon, a developer focused on browser software for the Roblox trading community.</p>
+          <p>The work is published in the open so that anyone can read exactly what it does before installing it.</p>
+        </div>
+        <ul class="principles">
+          <li><strong>Open by default</strong><span>All source code is public and released under the MIT licence.</span></li>
+          <li><strong>No hidden access</strong><span>No analytics, no remote code and no requests beyond what each feature documents.</span></li>
+          <li><strong>Quiet interfaces</strong><span>Information appears in place, sized to the page, and never covers what it describes.</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 dyrt</span>
+    <a href="https://github.com/Simon-commit">github.com/Simon-commit</a>
+  </footer>
+</div>
+</body>
+</html>
