@@ -1,8 +1,8 @@
 // Serves the static site and a few small read-only endpoints for the RoLens showcases:
 //   GET /api/values        current Rolimon's value, RAP and demand for the showcased items,
-//                          plus the rare items shown on the home page (resolved by name)
+//                          plus the rare items shown as floating images (resolved by name)
 //   GET /api/thumb/:id     an item's Roblox thumbnail (showcased and rare items only)
-//   GET /api/item/:id      a rare item's large transparent image for the home page
+//   GET /api/item/:id      a rare item's large transparent image
 //   GET /api/traders       name and display name of the traders in the example trade list
 //   GET /api/avatar/:id    a trader's Roblox headshot (listed traders only)
 // Images are proxied so visitors never contact Roblox. Only the items and players below are
@@ -10,7 +10,7 @@
 // one request per cache period, whatever the traffic.
 
 const ITEMS = [1365767, 11748356, 1285307];
-const RARE_NAMES = ["Red Sparkle Time Fedora", "Rainbow Shaggy", "Domino Crown"];
+const RARE_NAMES = ["Red Sparkle Time Fedora", "Rainbow Shaggy", "Domino Crown", "Silver King of the Night"];
 // Well-known traders: community favourites and players from Rolimon's top 100.
 const TRADERS = [52040320, 291377849, 2207291, 5866753];
 

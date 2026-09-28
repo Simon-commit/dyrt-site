@@ -667,3 +667,8 @@ span.float-img { visibility: hidden; }
 .au-slab { left: 23%; bottom: -4%; width: 10.5%; rotate: 7deg; animation-delay: -5.5s; }
 .au-etb2 { right: 2%; bottom: 4%; width: 20%; rotate: 4deg; animation-delay: -3s; }
 @media (prefers-reduced-motion: reduce) { .project-media .au-prod { animation: none; } }
+
+/* RoLens page: the item the card is valuing, floating over its screenshot */
+.shot-item { position: relative; }
+.f-sk { right: 0; top: 2%; width: 22%; z-index: 2; --r: 8deg; }
+.shot-item .float-img { filter: drop-shadow(0 14px 16px rgba(9, 11, 16, 0.45)); }
