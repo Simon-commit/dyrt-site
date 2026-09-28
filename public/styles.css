@@ -665,7 +665,7 @@ span.float-img { visibility: hidden; }
 }
 .au-etb1 { left: 2%; bottom: 3%; width: 21%; rotate: -4deg; }
 .au-slab { left: 23%; bottom: -4%; width: 10.5%; rotate: 7deg; animation-delay: -5.5s; }
-.au-etb2 { right: 2%; bottom: 4%; width: 20%; rotate: 4deg; animation-delay: -3s; }
+.au-etb2 { right: 2%; bottom: 4%; width: 18%; rotate: 4deg; animation-delay: -3s; }
 @media (prefers-reduced-motion: reduce) { .project-media .au-prod { animation: none; } }
 
 /* RoLens page: the item the card is valuing, floating over its screenshot */
