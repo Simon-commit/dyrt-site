@@ -594,14 +594,6 @@ main > section:first-of-type { border-top: 0; }
   filter: drop-shadow(0 1.6cqw 1.6cqw rgba(9, 11, 16, 0.4));
 }
 span.float-img { visibility: hidden; }
-.float-val {
-  margin-top: -2.6cqw;
-  padding: 0.5cqw 1.3cqw; border-radius: 999px;
-  background: var(--surface); border: 1px solid var(--rule-strong);
-  box-shadow: 0 10px 24px -14px rgba(9, 11, 16, 0.5);
-  font: 500 max(8px, 1.6cqw)/1.2 var(--mono); color: var(--accent);
-}
-.float-val:empty { display: none; }
 .f1 { left: 0%; top: 54%; width: 17%; --r: -8deg; }
 .f2 { left: 42%; top: 61%; width: 15%; --r: 6deg; animation-delay: -2.4s; }
 .f3 { left: 27%; top: -2%; width: 14%; --r: 5deg; animation-delay: -4.6s; }
