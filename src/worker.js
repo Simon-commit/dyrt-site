@@ -1,14 +1,22 @@
-// Serves the static site and two small read-only endpoints for the live offer card:
-//   GET /api/values       current Rolimon's value, RAP and demand for the showcased items
-//   GET /api/thumb/:id    the item's Roblox thumbnail, proxied so visitors never contact Roblox
-// Only the item ids below are ever requested. Responses are cached at the edge, so
-// Rolimon's sees at most one request per cache period, whatever the traffic.
+// Serves the static site and a few small read-only endpoints for the RoLens showcases:
+//   GET /api/values        current Rolimon's value, RAP and demand for the showcased items,
+//                          plus the rare items shown on the home page (resolved by name)
+//   GET /api/thumb/:id     an item's Roblox thumbnail (showcased and rare items only)
+//   GET /api/traders       name and display name of the traders in the example trade list
+//   GET /api/avatar/:id    a trader's Roblox headshot (listed traders only)
+// Images are proxied so visitors never contact Roblox. Only the items and players below are
+// ever requested, and responses are cached at the edge, so Rolimon's and Roblox see at most
+// one request per cache period, whatever the traffic.
 
 const ITEMS = [1365767, 11748356, 1285307];
+const RARE_NAMES = ["Red Sparkle Time Fedora", "Rainbow Shaggy", "Domino Crown"];
+// Well-known traders: community favourites and players from Rolimon's top 100.
+const TRADERS = [52040320, 291377849, 2207291, 5866753];
 
 const ROLIMONS_URL = "https://api.rolimons.com/items/v2/itemdetails";
 const VALUES_TTL = 600; // seconds
 const THUMB_TTL = 86400;
+const PROFILE_TTL = 86400;
 const USER_AGENT = "dyrt.io (+https://dyrt.io)";
 
 export default {
@@ -24,8 +32,23 @@ export default {
     const thumb = url.pathname.match(/^\/api\/thumb\/(\d+)$/);
     if (thumb) {
       const id = Number(thumb[1]);
-      if (!ITEMS.includes(id)) return new Response("Not found", { status: 404 });
-      return cached(request, ctx, THUMB_TTL, () => fetchThumb(id));
+      if (!ITEMS.includes(id) && !(await rareIds(request, ctx)).includes(id)) {
+        return new Response("Not found", { status: 404 });
+      }
+      return cached(request, ctx, THUMB_TTL, () =>
+        fetchImage(`https://thumbnails.roblox.com/v1/assets?assetIds=${id}&size=150x150&format=Webp&isCircular=false`),
+      );
+    }
+    if (url.pathname === "/api/traders") {
+      return cached(request, ctx, PROFILE_TTL, fetchTraders);
+    }
+    const avatar = url.pathname.match(/^\/api\/avatar\/(\d+)$/);
+    if (avatar) {
+      const id = Number(avatar[1]);
+      if (!TRADERS.includes(id)) return new Response("Not found", { status: 404 });
+      return cached(request, ctx, PROFILE_TTL, () =>
+        fetchImage(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${id}&size=150x150&format=Webp&isCircular=false`),
+      );
     }
     if (url.pathname.startsWith("/api/")) {
       return new Response("Not found", { status: 404 });
@@ -76,14 +99,44 @@ async function fetchValues() {
   }).filter(Boolean);
 
   if (items.length !== ITEMS.length) return json({ error: "unavailable" }, 502);
-  return json({ source: "Rolimon's", updated: new Date().toISOString(), items }, 200);
+
+  const rare = [];
+  for (const wanted of RARE_NAMES) {
+    for (const [id, row] of Object.entries(data.items)) {
+      if (!Array.isArray(row) || row[0] !== wanted) continue;
+      const [name, , rap, value] = row;
+      rare.push({ id: Number(id), name: String(name), rap: rap > 0 ? rap : null, value: value > 0 ? value : null });
+      break;
+    }
+  }
+  return json({ source: "Rolimon's", updated: new Date().toISOString(), items, rare }, 200);
 }
 
-async function fetchThumb(id) {
-  const meta = await fetch(
-    `https://thumbnails.roblox.com/v1/assets?assetIds=${id}&size=110x110&format=Webp&isCircular=false`,
-    { headers: { "user-agent": USER_AGENT } },
+// Ids of the rare items, read from the cached /api/values response.
+async function rareIds(request, ctx) {
+  const valuesUrl = new URL("/api/values", request.url);
+  const res = await cached(new Request(valuesUrl), ctx, VALUES_TTL, fetchValues);
+  if (!res.ok) return [];
+  const data = await res.json().catch(() => null);
+  return data && Array.isArray(data.rare) ? data.rare.map((item) => item.id) : [];
+}
+
+async function fetchTraders() {
+  const traders = await Promise.all(
+    TRADERS.map(async (id) => {
+      const res = await fetch(`https://users.roblox.com/v1/users/${id}`, { headers: { "user-agent": USER_AGENT } });
+      if (!res.ok) return null;
+      const user = await res.json();
+      if (!user || typeof user.name !== "string") return null;
+      return { id, name: user.name, displayName: String(user.displayName || user.name) };
+    }),
   );
+  if (traders.some((t) => !t)) return json({ error: "unavailable" }, 502);
+  return json({ traders }, 200);
+}
+
+async function fetchImage(metaUrl) {
+  const meta = await fetch(metaUrl, { headers: { "user-agent": USER_AGENT } });
   if (!meta.ok) return new Response("Unavailable", { status: 502 });
   const body = await meta.json();
   const src = body && body.data && body.data[0] && body.data[0].imageUrl;

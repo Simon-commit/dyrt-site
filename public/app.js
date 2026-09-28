@@ -1,5 +1,5 @@
-// Replaces the snapshot figures in the example offers (home card and RoLens page) with current Rolimon's values
-// from /api/values, served and cached by this site's own Worker.
+// Fills the RoLens showcases with current data served and cached by this site's own Worker: Rolimon's values for
+// the example offer and the rare items on the home card, and trader names for the example trade list.
 (() => {
   "use strict";
 
@@ -32,6 +32,49 @@
     else img.addEventListener("error", () => hideBroken(img), { once: true });
   });
 
+  // Rare items on the home card: thumbnail and value, or the row is removed if Rolimon's has no such item.
+  const showRare = (rare) => {
+    for (const row of document.querySelectorAll("[data-rare]")) {
+      const item = rare.find((r) => r.name === row.dataset.rare);
+      if (!item) {
+        row.remove();
+        continue;
+      }
+      const worth = item.value || item.rap || 0;
+      set(row, "value", worth ? compact(worth) : "");
+      const slot = row.querySelector(".rare-thumb");
+      if (slot && slot.tagName !== "IMG") {
+        const img = document.createElement("img");
+        img.className = "rare-thumb";
+        img.alt = "";
+        img.decoding = "async";
+        img.src = `/api/thumb/${item.id}`;
+        img.addEventListener("error", () => img.replaceWith(slot), { once: true });
+        slot.replaceWith(img);
+      }
+    }
+  };
+
+  // Example trade list: current names from Roblox; avatars that fail keep a neutral circle.
+  document.querySelectorAll(".tl-av").forEach((img) => {
+    const blank = () => img.removeAttribute("src");
+    if (img.complete && img.naturalWidth === 0) blank();
+    else img.addEventListener("error", blank, { once: true });
+  });
+  if (document.querySelector("[data-trader]")) {
+    fetch("/api/traders", { headers: { accept: "application/json" } })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+      .then((data) => {
+        for (const t of (data && data.traders) || []) {
+          const row = document.querySelector(`[data-trader="${t.id}"]`);
+          if (!row) continue;
+          set(row, "display", t.displayName);
+          set(row, "user", `@${t.name}`);
+        }
+      })
+      .catch(() => {});
+  }
+
   fetch("/api/values", { headers: { accept: "application/json" } })
     .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
     .then((data) => {
@@ -47,6 +90,8 @@
           set(row, "demand", DEMAND[item.demand] ? `${DEMAND[item.demand]} demand` : "Demand unrated");
         }
       }
+      showRare(Array.isArray(data.rare) ? data.rare : []);
+
       const totalValue = document.getElementById("total-value");
       const totalUsd = document.getElementById("total-usd");
       if (totalValue) totalValue.textContent = whole.format(total);

@@ -25,6 +25,7 @@
 <link rel="preload" href="/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
 </head>
 <body>
 <svg class="sprite" aria-hidden="true">
@@ -101,7 +102,6 @@
         <li class="project">
           <a class="project-link" href="/rolens/" aria-label="RoLens, project details"></a>
           <div class="project-media media-rolens">
-            <svg class="media-icon" aria-hidden="true"><use href="#i-rolens"/></svg>
             <div class="rl-stage" aria-hidden="true">
               <picture class="rl-item">
                 <source srcset="/rolens/shots/item-dark.webp" media="(prefers-color-scheme: dark)">
@@ -111,6 +111,11 @@
                 <source srcset="/rolens/shots/popup-dark.webp" media="(prefers-color-scheme: dark)">
                 <img src="/rolens/shots/popup-light.webp" alt="" width="560" height="789" decoding="async">
               </picture>
+              <ul class="rl-rares">
+                <li class="rare" data-rare="Red Sparkle Time Fedora"><span class="rare-thumb"></span><span class="rare-name">Red Sparkle Time Fedora</span><span class="rare-val" data-f="value"></span></li>
+                <li class="rare" data-rare="Rainbow Shaggy"><span class="rare-thumb"></span><span class="rare-name">Rainbow Shaggy</span><span class="rare-val" data-f="value"></span></li>
+                <li class="rare" data-rare="Domino Crown"><span class="rare-thumb"></span><span class="rare-name">Domino Crown</span><span class="rare-val" data-f="value"></span></li>
+              </ul>
             </div>
           </div>
           <div class="project-body">
@@ -132,6 +137,7 @@
           <div class="project-media media-aurora">
             <svg class="media-icon" aria-hidden="true"><use href="#i-aurora"/></svg>
             <img class="shot" src="/aurora/card.webp" alt="" width="1280" height="788" loading="lazy" decoding="async">
+            <img class="au-products" src="/aurora/products.svg" alt="" width="520" height="360" decoding="async">
           </div>
           <div class="project-body">
             <div class="project-top">

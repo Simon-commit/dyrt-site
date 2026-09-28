@@ -514,13 +514,12 @@ main > section:first-of-type { border-top: 0; }
 /* RoLens showcase: real extension screenshots, themed with the visitor's colour scheme */
 .rl-stage { position: absolute; inset: 0; }
 .rl-stage picture { position: absolute; display: block; }
-.rl-stage img {
+.rl-stage picture img {
   display: block; width: 100%; height: auto;
   border: 1px solid var(--rule-strong);
   box-shadow: 0 24px 48px -20px rgba(9, 11, 16, 0.45);
 }
-.rl-item { left: 6%; top: 25%; width: 60%; }
-.rl-item img { border-radius: 10px; }
+.rl-item picture img, .rl-item img { border-radius: 10px; }
 .rl-popup { right: 6%; top: 9%; width: 34%; }
 .rl-popup img { border-radius: 12px; }
 .project:has(.project-link):hover .rl-popup { transform: translateY(-4px); }
@@ -542,14 +541,14 @@ main > section:first-of-type { border-top: 0; }
     radial-gradient(90% 80% at 100% 100%, rgba(6, 182, 212, 0.12), transparent 60%),
     var(--sunken);
 }
-.gallery img {
+.gallery picture img {
   position: absolute; left: 50%; transform: translateX(-50%);
   height: auto; max-width: none;
   border: 1px solid var(--rule-strong);
   box-shadow: 0 24px 48px -20px rgba(9, 11, 16, 0.45);
 }
-.shot-item img { top: 50%; width: 88%; transform: translate(-50%, -50%); border-radius: 10px; }
-.shot-tall img { top: 9%; width: 64%; border-radius: 12px; }
+.shot-item picture img { top: 50%; width: 88%; transform: translate(-50%, -50%); border-radius: 10px; }
+.shot-tall picture img { top: 9%; width: 64%; border-radius: 12px; }
 .gallery figcaption { font-size: 14px; color: var(--muted); }
 @media (max-width: 860px) { .gallery { grid-template-columns: 1fr; max-width: 520px; } }
 
@@ -578,3 +577,91 @@ main > section:first-of-type { border-top: 0; }
   overflow-wrap: anywhere;
 }
 .legal-body a { color: var(--accent); text-underline-offset: 3px; }
+
+/* RoLens home card: rare items, filled in with live values */
+.media-rolens { container-type: inline-size; }
+.rl-rares {
+  position: absolute; left: 5%; bottom: 5%; width: 53%;
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4cqw;
+}
+.rare {
+  display: grid; justify-items: center; align-content: start; gap: 0.6cqw;
+  padding: 1.4cqw 1cqw 1.3cqw;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 1.6cqw;
+  box-shadow: 0 16px 32px -20px rgba(9, 11, 16, 0.45);
+}
+.rare-thumb {
+  width: 8cqw; height: 8cqw; border-radius: 1.2cqw;
+  background: var(--sunken); object-fit: contain; display: block;
+}
+.rare-name {
+  font-size: max(8px, 1.7cqw); font-weight: 600; line-height: 1.2; color: var(--ink);
+  min-height: 2.4em; display: grid; align-items: center; text-wrap: balance;
+}
+.rare-val { font: 500 max(8px, 1.75cqw)/1.2 var(--mono); color: var(--accent); min-height: 1.2em; }
+.rl-item { top: 8%; left: 5%; width: 53%; }
+
+/* RoLens page: the Trades list, recreated so real avatars can be shown */
+.shot-frame {
+  position: relative; display: block;
+  aspect-ratio: 4 / 3; overflow: hidden;
+  border: 1px solid var(--rule); border-radius: 14px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(16, 185, 129, 0.14), transparent 55%),
+    radial-gradient(90% 80% at 100% 100%, rgba(6, 182, 212, 0.12), transparent 60%),
+    var(--sunken);
+  container-type: inline-size;
+}
+.tl {
+  position: absolute; top: 9%; left: 50%; transform: translateX(-50%);
+  width: 64%;
+  container-type: inline-size;
+  background: var(--tl-bg); color: var(--tl-ink);
+  border: 1px solid var(--rule-strong); border-radius: 12px 12px 0 0;
+  box-shadow: 0 24px 48px -20px rgba(9, 11, 16, 0.45);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --tl-bg: #ffffff; --tl-ink: #191b1d; --tl-muted: #606264; --tl-line: #e3e4e6; --tl-sel: #f2f3f4; --tl-av: #e3e4e6;
+}
+.tl-tabs { display: flex; gap: 4.6cqw; padding: 4.6cqw 4.6cqw 0; font-size: 4.3cqw; color: var(--tl-muted); border-bottom: 1px solid var(--tl-line); white-space: nowrap; }
+.tl-tabs span { padding-bottom: 2.6cqw; }
+.tl-tabs .is-active { color: var(--tl-ink); box-shadow: inset 0 -2px 0 currentColor; }
+.tl-rows { list-style: none; margin: 0; padding: 0; }
+.tl-row {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto;
+  column-gap: 3.6cqw; row-gap: 1.4cqw; align-items: center;
+  padding: 4.4cqw 3cqw 4.4cqw 4.6cqw;
+  border-bottom: 1px solid var(--tl-line);
+}
+.tl-row.is-selected { background: var(--tl-sel); }
+.tl-av { grid-column: 1; grid-row: 1 / 3; width: 12.6cqw; height: 12.6cqw; border-radius: 50%; background: var(--tl-av); object-fit: cover; display: block; }
+.tl-who { grid-column: 2; grid-row: 1 / 3; display: grid; gap: 1cqw; min-width: 0; }
+.tl-name { font-size: 4cqw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--tl-muted); }
+.tl-name strong { color: var(--tl-ink); font-weight: 700; }
+.tl-exp { font-size: 3.4cqw; color: var(--tl-muted); }
+.tl-date { grid-column: 3; grid-row: 1; font-size: 3.4cqw; color: var(--tl-muted); justify-self: end; }
+.tl-chip {
+  grid-column: 3; grid-row: 2; justify-self: end;
+  display: inline-flex; align-items: center; gap: 1.6cqw; white-space: nowrap;
+  padding: 0.9cqw 2.4cqw; border-radius: 999px;
+  font-size: 3.2cqw; font-family: var(--body);
+  color: #047857; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.tl-chip strong { font-weight: 700; }
+.tl-pct { opacity: 0.85; }
+.tl-warn { color: #a16207; padding-left: 1.6cqw; border-left: 1px solid currentColor; }
+.tl-dot { width: 1.5cqw; height: 1.5cqw; border-radius: 50%; background: currentColor; }
+@media (prefers-color-scheme: dark) {
+  .tl { --tl-bg: #1b1c1f; --tl-ink: #f7f7f8; --tl-muted: #b8b9bb; --tl-line: #2d2f33; --tl-sel: #232428; --tl-av: #2d2f33; }
+  .tl-chip { color: #3fd3a6; background: rgba(63, 211, 166, 0.1); border-color: rgba(63, 211, 166, 0.35); }
+  .tl-warn { color: #fbbf24; }
+}
+
+/* Aurora home card: the kind of products it watches, drawn generically */
+.project-media .au-products {
+  position: absolute; left: 2%; bottom: -3%; width: 44%; height: auto; max-width: none;
+  pointer-events: none;
+}
