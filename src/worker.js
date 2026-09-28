@@ -10,7 +10,7 @@
 // one request per cache period, whatever the traffic.
 
 const ITEMS = [1365767, 11748356, 1285307];
-const RARE_NAMES = ["Red Sparkle Time Fedora", "Rainbow Shaggy", "Domino Crown", "Silver King of the Night"];
+const RARE_NAMES = ["Red Sparkle Time Fedora", "Rainbow Shaggy", "Domino Crown", "The Classic ROBLOX Fedora"];
 // Well-known traders: community favourites and players from Rolimon's top 100.
 const TRADERS = [52040320, 291377849, 2207291, 5866753];
 
