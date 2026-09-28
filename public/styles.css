@@ -552,3 +552,29 @@ main > section:first-of-type { border-top: 0; }
 .shot-tall img { top: 9%; width: 64%; border-radius: 12px; }
 .gallery figcaption { font-size: 14px; color: var(--muted); }
 @media (max-width: 860px) { .gallery { grid-template-columns: 1fr; max-width: 520px; } }
+
+/* RoLens privacy policy */
+.legal { max-width: 70ch; padding-block: clamp(24px, 4vw, 48px) clamp(56px, 8vw, 96px); }
+.legal-head { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--rule); }
+.legal-head h1 {
+  font: 700 clamp(36px, 5vw, 52px)/1.05 var(--display);
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.03em; color: var(--ink);
+}
+.legal-meta { font-size: 15px; color: var(--muted); }
+.legal-body { display: grid; gap: 16px; padding-top: 12px; font-size: 16px; line-height: 1.7; color: var(--text); }
+.legal-body h2 {
+  margin-top: 24px;
+  font: 700 22px/1.2 var(--display);
+  font-variation-settings: "opsz" 48;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.legal-body ul { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+.legal-body strong { color: var(--ink); font-weight: 600; }
+.legal-body code {
+  font: 0.88em var(--mono);
+  padding: 1px 6px; border-radius: 5px;
+  background: var(--sunken); color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.legal-body a { color: var(--accent); text-underline-offset: 3px; }
