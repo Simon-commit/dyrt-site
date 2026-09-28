@@ -8,6 +8,7 @@ The site is static HTML and CSS with one small Cloudflare Worker. Every push to 
 
 - `public/index.html`: the home page with the project catalogue. To add a project, copy one `<li class="project">` block inside `.catalogue`, and add a page for it under `public/<name>/index.html` if it needs one.
 - `public/rolens/index.html`: the RoLens project page.
+- `public/aurora/index.html`: the Aurora project page, with screenshots in `public/aurora/`.
 - `public/`: also holds `styles.css`, `app.js`, the 404 page, the favicon, the social preview image and the self-hosted fonts.
 - `src/worker.js`: serves `public/` and two read-only endpoints for the example trades on the home page and the RoLens page.
   - `GET /api/values` returns the current Rolimon's value, RAP and demand for the three showcased items.
