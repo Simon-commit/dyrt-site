@@ -10,7 +10,7 @@ The site is static HTML and CSS with one small Cloudflare Worker. Every push to 
 - `public/rolens/index.html`: the RoLens project page.
 - `public/aurora/index.html`: the Aurora project page, with screenshots in `public/aurora/`.
 - `public/`: also holds `styles.css`, `app.js`, the 404 page, the favicon, the social preview image and the self-hosted fonts.
-- `src/worker.js`: serves `public/` and two read-only endpoints for the example trades on the home page and the RoLens page.
+- `src/worker.js`: serves `public/` and two read-only endpoints for the example trade on the RoLens page.
   - `GET /api/values` returns the current Rolimon's value, RAP and demand for the three showcased items.
   - `GET /api/thumb/:id` returns an item's Roblox thumbnail, for those three items only.
 

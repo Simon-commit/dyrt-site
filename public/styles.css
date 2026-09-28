@@ -510,3 +510,45 @@ main > section:first-of-type { border-top: 0; }
 @media (max-width: 900px) {
   .features-2, .split { grid-template-columns: 1fr; }
 }
+
+/* RoLens showcase: real extension screenshots, themed with the visitor's colour scheme */
+.rl-stage { position: absolute; inset: 0; }
+.rl-stage picture { position: absolute; display: block; }
+.rl-stage img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 24px 48px -20px rgba(9, 11, 16, 0.45);
+}
+.rl-item { left: 6%; top: 25%; width: 60%; }
+.rl-item img { border-radius: 10px; }
+.rl-popup { right: 6%; top: 9%; width: 34%; }
+.rl-popup img { border-radius: 12px; }
+.project:has(.project-link):hover .rl-popup { transform: translateY(-4px); }
+.rl-popup { transition: transform 0.3s ease; }
+@media (prefers-reduced-motion: reduce) { .rl-popup { transition: none; } }
+
+/* RoLens page: screenshot gallery */
+.gallery {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+.gallery figure { margin: 0; display: grid; gap: 12px; align-content: start; }
+.gallery picture {
+  position: relative; display: block;
+  aspect-ratio: 4 / 3; overflow: hidden;
+  border: 1px solid var(--rule); border-radius: 14px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(16, 185, 129, 0.14), transparent 55%),
+    radial-gradient(90% 80% at 100% 100%, rgba(6, 182, 212, 0.12), transparent 60%),
+    var(--sunken);
+}
+.gallery img {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  height: auto; max-width: none;
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 24px 48px -20px rgba(9, 11, 16, 0.45);
+}
+.shot-item img { top: 50%; width: 88%; transform: translate(-50%, -50%); border-radius: 10px; }
+.shot-tall img { top: 9%; width: 64%; border-radius: 12px; }
+.gallery figcaption { font-size: 14px; color: var(--muted); }
+@media (max-width: 860px) { .gallery { grid-template-columns: 1fr; max-width: 520px; } }

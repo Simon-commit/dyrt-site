@@ -159,17 +159,53 @@
           <p>The Trades list shows what each offer is worth before it is opened, and flags items that have no value yet.</p>
         </article>
         <article class="feature">
-          <h3>Read-only by design</h3>
-          <p>RoLens only reads. It never sends, accepts or declines a trade, and every request it makes is documented.</p>
+          <h3>Inbound trade alerts</h3>
+          <p>New inbound trades can reach Discord, the ntfy app or a desktop notification, filtered by value or gain. Only the trader's name, the items and their values are sent.</p>
+        </article>
+        <article class="feature">
+          <h3>Outbound trade tools</h3>
+          <p>RoLens finds outbound trades that can no longer complete and cancels them one at a time, only after you review and confirm the exact list.</p>
+        </article>
+        <article class="feature">
+          <h3>Trade proofs</h3>
+          <p>A completed trade becomes a shareable image with both sides, every value and the net result, drawn entirely on your device.</p>
+        </article>
+        <article class="feature">
+          <h3>Nothing without your say</h3>
+          <p>RoLens never sends, accepts or counters a trade and never acts on its own. Every request it makes is listed in the source.</p>
         </article>
       </div>
 
+      <div class="gallery" aria-label="Screenshots">
+        <figure class="shot-item">
+          <picture>
+            <source srcset="/rolens/shots/item-dark.webp" media="(prefers-color-scheme: dark)">
+            <img src="/rolens/shots/item-light.webp" alt="The RoLens card on a Roblox item page, with value, USD, RAP, RoUtility value, demand and trend" width="900" height="426" decoding="async">
+          </picture>
+          <figcaption>Item page card, with both sources compared.</figcaption>
+        </figure>
+        <figure class="shot-tall">
+          <picture>
+            <source srcset="/rolens/shots/trades-dark.webp" media="(prefers-color-scheme: dark)">
+            <img src="/rolens/shots/trades-light.webp" alt="The Roblox Trades list with the net value and percentage of each trade shown by RoLens" width="560" height="725" decoding="async">
+          </picture>
+          <figcaption>Net value on every trade in the list.</figcaption>
+        </figure>
+        <figure class="shot-tall">
+          <picture>
+            <source srcset="/rolens/shots/alerts-dark.webp" media="(prefers-color-scheme: dark)">
+            <img src="/rolens/shots/alerts-light.webp" alt="The RoLens popup Alerts tab with Discord and phone connected and a minimum value filter" width="560" height="1035" decoding="async">
+          </picture>
+          <figcaption>Alerts to Discord, phone or desktop.</figcaption>
+        </figure>
+      </div>
+
       <dl class="facts">
-        <div><dt>Version</dt><dd>0.6.4</dd></div>
+        <div><dt>Version</dt><dd>0.9.0</dd></div>
         <div><dt>Platform</dt><dd>Chrome, MV3</dd></div>
         <div><dt>Language</dt><dd>TypeScript</dd></div>
         <div><dt>Licence</dt><dd>MIT</dd></div>
-        <div><dt>Tests</dt><dd>128 passing</dd></div>
+        <div><dt>Tests</dt><dd>154 passing</dd></div>
       </dl>
     </section>
 
@@ -179,10 +215,12 @@
         <a class="text-link" href="https://github.com/Simon-commit/rolens/commits">Full history</a>
       </div>
       <ol class="log">
+        <li><span class="ver">0.9.0</span><span>A compact popup with tabs, and alerts set up without leaving it.</span></li>
+        <li><span class="ver">0.8.0</span><span>Inbound trade alerts to Discord, the ntfy app or the desktop.</span></li>
+        <li><span class="ver">0.7.3</span><span>Outbound trades that can no longer complete are cancelled after review.</span></li>
+        <li><span class="ver">0.7.2</span><span>Trade proof images for completed trades.</span></li>
         <li><span class="ver">0.6.4</span><span>The item card collapses to a single line, and the choice is remembered.</span></li>
         <li><span class="ver">0.6.0</span><span>Values on profile inventories, and trade previews in the Trades list.</span></li>
-        <li><span class="ver">0.5.0</span><span>A full revision of the interface, the hover card and every line of copy.</span></li>
-        <li><span class="ver">0.4.0</span><span>Either data source can run on its own, and a redrawn lens mark.</span></li>
       </ol>
 
     </section>

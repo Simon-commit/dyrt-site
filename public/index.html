@@ -25,7 +25,6 @@
 <link rel="preload" href="/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
-<script src="/app.js" defer></script>
 </head>
 <body>
 <svg class="sprite" aria-hidden="true">
@@ -103,10 +102,15 @@
           <a class="project-link" href="/rolens/" aria-label="RoLens, project details"></a>
           <div class="project-media media-rolens">
             <svg class="media-icon" aria-hidden="true"><use href="#i-rolens"/></svg>
-            <div class="mini-offer" aria-hidden="true">
-              <div class="mini-row" data-id="1365767"><span class="mini-name">Valkyrie Helm</span><span class="chip"><span data-f="value">270K</span><span class="usd" data-f="usd">≈$810</span></span></div>
-              <div class="mini-row" data-id="11748356"><span class="mini-name">Clockwork's Shades</span><span class="chip"><span data-f="value">1.6M</span><span class="usd" data-f="usd">≈$4,800</span></span></div>
-              <div class="mini-row" data-id="1285307"><span class="mini-name">Sparkle Time Fedora</span><span class="chip"><span data-f="value">2.7M</span><span class="usd" data-f="usd">≈$8,100</span></span></div>
+            <div class="rl-stage" aria-hidden="true">
+              <picture class="rl-item">
+                <source srcset="/rolens/shots/item-dark.webp" media="(prefers-color-scheme: dark)">
+                <img src="/rolens/shots/item-light.webp" alt="" width="900" height="426" decoding="async">
+              </picture>
+              <picture class="rl-popup">
+                <source srcset="/rolens/shots/popup-dark.webp" media="(prefers-color-scheme: dark)">
+                <img src="/rolens/shots/popup-light.webp" alt="" width="560" height="789" decoding="async">
+              </picture>
             </div>
           </div>
           <div class="project-body">
@@ -115,7 +119,7 @@
               <span class="badge">Open source</span>
             </div>
             <h3>RoLens</h3>
-            <p>Live Rolimon's and RoUtility values placed directly inside Roblox trades, item pages and inventories. Read-only by design.</p>
+            <p>Live Rolimon's and RoUtility values inside Roblox trades, item pages and inventories, with inbound trade alerts and outbound trade tools. It acts only on trades you review and confirm.</p>
             <ul class="tags" aria-label="Technologies">
               <li>TypeScript</li><li>Chrome MV3</li><li>Shadow DOM</li>
             </ul>
