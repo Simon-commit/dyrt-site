@@ -1,4 +1,4 @@
-// Replaces the snapshot figures in the example offer with current Rolimon's values
+// Replaces the snapshot figures in the example offers (home card and RoLens page) with current Rolimon's values
 // from /api/values, served and cached by this site's own Worker.
 (() => {
   "use strict";
@@ -38,24 +38,28 @@
       if (!data || !Array.isArray(data.items)) return;
       let total = 0;
       for (const item of data.items) {
-        const row = document.querySelector(`.offer-row[data-id="${item.id}"]`);
-        if (!row) continue;
         const worth = item.value || item.rap || 0;
         total += worth;
-        set(row, "value", worth ? compact(worth) : "No value");
-        set(row, "usd", worth ? estimate(worth) : "");
-        set(row, "rap", item.rap ? `RAP ${whole.format(item.rap)}` : "No RAP");
-        set(row, "demand", DEMAND[item.demand] ? `${DEMAND[item.demand]} demand` : "Demand unrated");
+        for (const row of document.querySelectorAll(`[data-id="${item.id}"]`)) {
+          set(row, "value", worth ? compact(worth) : "No value");
+          set(row, "usd", worth ? estimate(worth) : "");
+          set(row, "rap", item.rap ? `RAP ${whole.format(item.rap)}` : "No RAP");
+          set(row, "demand", DEMAND[item.demand] ? `${DEMAND[item.demand]} demand` : "Demand unrated");
+        }
       }
-      document.getElementById("total-value").textContent = whole.format(total);
-      document.getElementById("total-usd").textContent = estimate(total);
+      const totalValue = document.getElementById("total-value");
+      const totalUsd = document.getElementById("total-usd");
+      if (totalValue) totalValue.textContent = whole.format(total);
+      if (totalUsd) totalUsd.textContent = estimate(total);
 
       const time = new Date(data.updated);
       const clock = Number.isNaN(time.getTime())
         ? ""
         : time.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-      document.getElementById("status").dataset.state = "live";
-      document.getElementById("status-text").textContent = clock ? `Live · ${clock}` : "Live";
+      const status = document.getElementById("status");
+      const statusText = document.getElementById("status-text");
+      if (status) status.dataset.state = "live";
+      if (statusText) statusText.textContent = clock ? `Live · ${clock}` : "Live";
     })
     .catch(() => {
       // The snapshot figures already in the page stay in place.
