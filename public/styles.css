@@ -578,32 +578,36 @@ main > section:first-of-type { border-top: 0; }
 }
 .legal-body a { color: var(--accent); text-underline-offset: 3px; }
 
-/* RoLens home card: rare items, filled in with live values */
+/* RoLens home card: rare items floating around the screenshots, filled in with live values */
 .media-rolens { container-type: inline-size; }
-.rl-rares {
-  position: absolute; left: 5%; bottom: 5%; width: 53%;
-  list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4cqw;
+.rl-item { top: 24%; left: 5%; width: 57%; }
+.rl-popup { top: 7%; right: 5%; width: 33%; }
+.rl-popup img { border-radius: 12px 12px 0 0; }
+.float {
+  position: absolute; z-index: 1;
+  display: grid; justify-items: center; gap: 0.4cqw;
+  pointer-events: none;
+  animation: bob 7s ease-in-out infinite;
 }
-.rare {
-  display: grid; justify-items: center; align-content: start; gap: 0.6cqw;
-  padding: 1.4cqw 1cqw 1.3cqw;
-  text-align: center;
-  background: var(--surface);
-  border: 1px solid var(--rule-strong);
-  border-radius: 1.6cqw;
-  box-shadow: 0 16px 32px -20px rgba(9, 11, 16, 0.45);
+.float-img {
+  display: block; width: 100%; aspect-ratio: 1; height: auto; object-fit: contain;
+  filter: drop-shadow(0 1.6cqw 1.6cqw rgba(9, 11, 16, 0.4));
 }
-.rare-thumb {
-  width: 8cqw; height: 8cqw; border-radius: 1.2cqw;
-  background: var(--sunken); object-fit: contain; display: block;
+span.float-img { visibility: hidden; }
+.float-val {
+  margin-top: -2.6cqw;
+  padding: 0.5cqw 1.3cqw; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--rule-strong);
+  box-shadow: 0 10px 24px -14px rgba(9, 11, 16, 0.5);
+  font: 500 max(8px, 1.6cqw)/1.2 var(--mono); color: var(--accent);
 }
-.rare-name {
-  font-size: max(8px, 1.7cqw); font-weight: 600; line-height: 1.2; color: var(--ink);
-  min-height: 2.4em; display: grid; align-items: center; text-wrap: balance;
-}
-.rare-val { font: 500 max(8px, 1.75cqw)/1.2 var(--mono); color: var(--accent); min-height: 1.2em; }
-.rl-item { top: 8%; left: 5%; width: 53%; }
+.float-val:empty { display: none; }
+.f1 { left: 0%; top: 54%; width: 17%; --r: -8deg; }
+.f2 { left: 42%; top: 61%; width: 15%; --r: 6deg; animation-delay: -2.4s; }
+.f3 { left: 27%; top: -2%; width: 14%; --r: 5deg; animation-delay: -4.6s; }
+.float .float-img { transform: rotate(var(--r)); }
+@keyframes bob { 50% { translate: 0 -0.9cqw; } }
+@media (prefers-reduced-motion: reduce) { .float { animation: none; } }
 
 /* RoLens page: the Trades list, recreated so real avatars can be shown */
 .shot-frame {
@@ -658,10 +662,4 @@ main > section:first-of-type { border-top: 0; }
   .tl { --tl-bg: #1b1c1f; --tl-ink: #f7f7f8; --tl-muted: #b8b9bb; --tl-line: #2d2f33; --tl-sel: #232428; --tl-av: #2d2f33; }
   .tl-chip { color: #3fd3a6; background: rgba(63, 211, 166, 0.1); border-color: rgba(63, 211, 166, 0.35); }
   .tl-warn { color: #fbbf24; }
-}
-
-/* Aurora home card: the kind of products it watches, drawn generically */
-.project-media .au-products {
-  position: absolute; left: 2%; bottom: -3%; width: 44%; height: auto; max-width: none;
-  pointer-events: none;
 }

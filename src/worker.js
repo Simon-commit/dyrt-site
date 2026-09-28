@@ -2,6 +2,7 @@
 //   GET /api/values        current Rolimon's value, RAP and demand for the showcased items,
 //                          plus the rare items shown on the home page (resolved by name)
 //   GET /api/thumb/:id     an item's Roblox thumbnail (showcased and rare items only)
+//   GET /api/item/:id      a rare item's large transparent image for the home page
 //   GET /api/traders       name and display name of the traders in the example trade list
 //   GET /api/avatar/:id    a trader's Roblox headshot (listed traders only)
 // Images are proxied so visitors never contact Roblox. Only the items and players below are
@@ -37,6 +38,14 @@ export default {
       }
       return cached(request, ctx, THUMB_TTL, () =>
         fetchImage(`https://thumbnails.roblox.com/v1/assets?assetIds=${id}&size=150x150&format=Webp&isCircular=false`),
+      );
+    }
+    const large = url.pathname.match(/^\/api\/item\/(\d+)$/);
+    if (large) {
+      const id = Number(large[1]);
+      if (!(await rareIds(request, ctx)).includes(id)) return new Response("Not found", { status: 404 });
+      return cached(request, ctx, THUMB_TTL, () =>
+        fetchImage(`https://thumbnails.roblox.com/v1/assets?assetIds=${id}&size=420x420&format=Png&isCircular=false`),
       );
     }
     if (url.pathname === "/api/traders") {

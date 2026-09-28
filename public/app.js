@@ -32,7 +32,7 @@
     else img.addEventListener("error", () => hideBroken(img), { once: true });
   });
 
-  // Rare items on the home card: thumbnail and value, or the row is removed if Rolimon's has no such item.
+  // Rare items on the home card: large image and value, or the item is removed if Rolimon's has no such item.
   const showRare = (rare) => {
     for (const row of document.querySelectorAll("[data-rare]")) {
       const item = rare.find((r) => r.name === row.dataset.rare);
@@ -42,13 +42,13 @@
       }
       const worth = item.value || item.rap || 0;
       set(row, "value", worth ? compact(worth) : "");
-      const slot = row.querySelector(".rare-thumb");
+      const slot = row.querySelector(".float-img");
       if (slot && slot.tagName !== "IMG") {
         const img = document.createElement("img");
-        img.className = "rare-thumb";
+        img.className = "float-img";
         img.alt = "";
         img.decoding = "async";
-        img.src = `/api/thumb/${item.id}`;
+        img.src = `/api/item/${item.id}`;
         img.addEventListener("error", () => img.replaceWith(slot), { once: true });
         slot.replaceWith(img);
       }
