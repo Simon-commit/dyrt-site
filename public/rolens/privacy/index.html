@@ -95,12 +95,13 @@
         <p>Requests to Rolimon's and RoUtility never include cookies or any information about you.</p>
         <ul>
           <li><strong>Rolimon's</strong> (<code>api.rolimons.com</code>) provides the public item value table, and the inventory of a player whose profile you open. Only that player's user ID is sent, so Rolimon's can see which profiles are viewed, but not who is viewing them.</li>
+          <li><strong>Rolimon's player pages</strong> (<code>www.rolimons.com/player/{id}</code>) show when a player received each of their items. RoLens reads them only when hold end times are turned on, which asks Chrome for access to those pages. When you open the page to send a trade, it reads your trade partner's page, and yours if you have items on hold. Only the player's user ID is sent. Turning hold end times off removes the permission.</li>
           <li><strong>RoUtility</strong> (<code>routility.io</code>) provides details for individual items shown on the page you are viewing. Only the item ID is sent, so RoUtility can see which limited items are viewed, but not who is viewing them.</li>
         </ul>
         <p>Either source can be turned off in the RoLens popup, which stops all requests to it.</p>
         <h2>Requests to Roblox</h2>
         <ul>
-          <li>Item images and, for trade proofs, avatar headshots are requested from <code>thumbnails.roblox.com</code> without cookies. Trade proofs are drawn on your device and are never uploaded.</li>
+          <li>Item images and, for trade proofs and Discord alerts, avatar headshots are requested from <code>thumbnails.roblox.com</code> without cookies. Trade proofs are drawn on your device and are never uploaded.</li>
           <li>When trade list previews are on, RoLens reads your trade list and the trades shown on screen from <code>trades.roblox.com</code>, as the Roblox website itself does, using your existing session. The contents of those trades (item IDs, item names and Robux amounts) are saved on your device only, so a trade is never requested twice. They are never sent anywhere.</li>
           <li>The duplicate trade warning reads your outbound trades the same way when you open the page to send a trade.</li>
           <li>The outbound trade tools read your outbound trades and your limited items (<code>inventory.roblox.com</code>, without cookies), and cancel only the trades you select and confirm, using your session.</li>
