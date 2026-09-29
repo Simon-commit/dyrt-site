@@ -187,9 +187,16 @@
         </figure>
         <figure class="shot-tall">
           <div class="shot-frame">
-            <div class="tl" role="img" aria-label="The Roblox Trades list with the net value of each trade shown by RoLens">
-              <div class="tl-tabs" aria-hidden="true"><span class="is-active">Inbound</span><span>Outbound</span><span>Completed</span><span>Inactive</span></div>
-              <ol class="tl-rows" aria-hidden="true">
+            <div class="tl" data-tabs>
+              <div class="tl-tabs" role="tablist" aria-label="Example trade lists">
+                <button type="button" role="tab" id="tl-tab-inbound" aria-controls="tl-inbound" aria-selected="true" tabindex="0">Inbound</button>
+                <button type="button" role="tab" id="tl-tab-outbound" aria-controls="tl-outbound" aria-selected="false" tabindex="-1">Outbound</button>
+                <button type="button" role="tab" id="tl-tab-completed" aria-controls="tl-completed" aria-selected="false" tabindex="-1">Completed</button>
+                <button type="button" role="tab" id="tl-tab-inactive" aria-controls="tl-inactive" aria-selected="false" tabindex="-1">Inactive</button>
+                <span class="tl-bar" aria-hidden="true"></span>
+              </div>
+              <div class="tl-panels">
+              <ol class="tl-rows is-active" id="tl-inbound" role="tabpanel" aria-labelledby="tl-tab-inbound">
               <li class="tl-row is-selected" data-trader="52040320">
                 <img class="tl-av" src="/api/avatar/52040320" alt="" width="48" height="48" decoding="async">
                 <div class="tl-who">
@@ -227,6 +234,121 @@
                 <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+485K</strong><span class="tl-pct">+53.9%</span></span>
               </li>
               </ol>
+              <ol class="tl-rows" id="tl-outbound" role="tabpanel" aria-labelledby="tl-tab-outbound" hidden>
+              <li class="tl-row is-selected" data-trader="3095250">
+                <img class="tl-av" src="/api/avatar/3095250" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">rip_indra</strong> <span data-f="user">@rip_indra</span></span>
+                  <span class="tl-exp">Expires 10/02/2026</span>
+                </div>
+                <span class="tl-date">9/25/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+1.2M</strong><span class="tl-pct">+18.4%</span></span>
+              </li>
+              <li class="tl-row" data-trader="87353706">
+                <img class="tl-av" src="/api/avatar/87353706" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">zlib</strong> <span data-f="user">@zlib</span></span>
+                  <span class="tl-exp">Expires 10/03/2026</span>
+                </div>
+                <span class="tl-date">9/26/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+640K</strong><span class="tl-pct">+12.7%</span></span>
+              </li>
+              <li class="tl-row" data-trader="73072929">
+                <img class="tl-av" src="/api/avatar/73072929" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">CV10K</strong> <span data-f="user">@CV10K</span></span>
+                  <span class="tl-exp">Expires 10/03/2026</span>
+                </div>
+                <span class="tl-date">9/26/26</span>
+                <span class="tl-chip is-loss"><span class="tl-dot" aria-hidden="true"></span><strong>−210K</strong><span class="tl-pct">−4.1%</span></span>
+              </li>
+              <li class="tl-row" data-trader="5649499">
+                <img class="tl-av" src="/api/avatar/5649499" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">kenami</strong> <span data-f="user">@kenami</span></span>
+                  <span class="tl-exp">Expires 10/04/2026</span>
+                </div>
+                <span class="tl-date">9/27/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+95K</strong><span class="tl-pct">+3.8%</span></span>
+              </li>
+              </ol>
+              <ol class="tl-rows" id="tl-completed" role="tabpanel" aria-labelledby="tl-tab-completed" hidden>
+              <li class="tl-row is-selected" data-trader="3308733">
+                <img class="tl-av" src="/api/avatar/3308733" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">David</strong> <span data-f="user">@davidweiss2</span></span>
+                  <span class="tl-exp">Completed</span>
+                </div>
+                <span class="tl-date">9/23/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+2.4M</strong><span class="tl-pct">+31.5%</span></span>
+              </li>
+              <li class="tl-row" data-trader="241063740">
+                <img class="tl-av" src="/api/avatar/241063740" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">Bourgist</strong> <span data-f="user">@Bourgist</span></span>
+                  <span class="tl-exp">Completed</span>
+                </div>
+                <span class="tl-date">9/21/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+880K</strong><span class="tl-pct">+22.3%</span></span>
+              </li>
+              <li class="tl-row" data-trader="37152862">
+                <img class="tl-av" src="/api/avatar/37152862" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">GodzGalaxy</strong> <span data-f="user">@GodzGalaxy</span></span>
+                  <span class="tl-exp">Completed</span>
+                </div>
+                <span class="tl-date">9/19/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+1.5M</strong><span class="tl-pct">+40.2%</span></span>
+              </li>
+              <li class="tl-row" data-trader="7733466">
+                <img class="tl-av" src="/api/avatar/7733466" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">InceptionTime</strong> <span data-f="user">@InceptionTime</span></span>
+                  <span class="tl-exp">Completed</span>
+                </div>
+                <span class="tl-date">9/16/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+310K</strong><span class="tl-pct">+9.6%</span></span>
+              </li>
+              </ol>
+              <ol class="tl-rows" id="tl-inactive" role="tabpanel" aria-labelledby="tl-tab-inactive" hidden>
+              <li class="tl-row is-selected" data-trader="14000877">
+                <img class="tl-av" src="/api/avatar/14000877" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">Zireael</strong> <span data-f="user">@PolarisxProject</span></span>
+                  <span class="tl-exp">Declined</span>
+                </div>
+                <span class="tl-date">9/22/26</span>
+                <span class="tl-chip is-loss"><span class="tl-dot" aria-hidden="true"></span><strong>−1.4M</strong><span class="tl-pct">−31.2%</span></span>
+              </li>
+              <li class="tl-row" data-trader="3343561540">
+                <img class="tl-av" src="/api/avatar/3343561540" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">Commissioner_Bane</strong> <span data-f="user">@Commissioner_Bane</span></span>
+                  <span class="tl-exp">Expired</span>
+                </div>
+                <span class="tl-date">9/20/26</span>
+                <span class="tl-chip"><span class="tl-dot" aria-hidden="true"></span><strong>+260K</strong><span class="tl-pct">+6.9%</span></span>
+              </li>
+              <li class="tl-row" data-trader="85222202">
+                <img class="tl-av" src="/api/avatar/85222202" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">NirkZarek</strong> <span data-f="user">@NirkZarek</span></span>
+                  <span class="tl-exp">Countered</span>
+                </div>
+                <span class="tl-date">9/18/26</span>
+                <span class="tl-chip is-loss"><span class="tl-dot" aria-hidden="true"></span><strong>−540K</strong><span class="tl-pct">−14.8%</span></span>
+              </li>
+              <li class="tl-row" data-trader="680792218">
+                <img class="tl-av" src="/api/avatar/680792218" alt="" width="48" height="48" decoding="async">
+                <div class="tl-who">
+                  <span class="tl-name"><strong data-f="display">Apollo</strong> <span data-f="user">@Kilo16820</span></span>
+                  <span class="tl-exp">Declined</span>
+                </div>
+                <span class="tl-date">9/15/26</span>
+                <span class="tl-chip is-loss"><span class="tl-dot" aria-hidden="true"></span><strong>−2.2M</strong><span class="tl-pct">−38.0%</span></span>
+              </li>
+              </ol>
+              </div>
             </div>
           </div>
           <figcaption>Net value on every trade in the list. Example trades, shown with well-known traders.</figcaption>

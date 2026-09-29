@@ -12,7 +12,12 @@
 const ITEMS = [1365767, 11748356, 1285307];
 const RARE_NAMES = ["Red Sparkle Time Fedora", "Rainbow Shaggy", "Domino Crown", "The Classic ROBLOX Fedora"];
 // Well-known traders: community favourites and players from Rolimon's top 100.
-const TRADERS = [52040320, 291377849, 2207291, 5866753];
+const TRADERS = [
+  52040320, 291377849, 2207291, 5866753, // pmkopp, highlyswanted, Linkmon99, Simoon68
+  3095250, 87353706, 73072929, 5649499, // rip_indra, zlib, CV10K, kenami
+  3308733, 241063740, 37152862, 7733466, // davidweiss2, Bourgist, GodzGalaxy, InceptionTime
+  14000877, 3343561540, 85222202, 680792218, // PolarisxProject, Commissioner_Bane, NirkZarek, Kilo16820
+];
 
 const ROLIMONS_URL = "https://api.rolimons.com/items/v2/itemdetails";
 const VALUES_TTL = 600; // seconds
@@ -49,7 +54,8 @@ export default {
       );
     }
     if (url.pathname === "/api/traders") {
-      return cached(request, ctx, PROFILE_TTL, fetchTraders);
+      // Keyed by the list itself, so a changed list is fetched afresh rather than served from the cache.
+      return cached(request, ctx, PROFILE_TTL, fetchTraders, `?ids=${TRADERS.join(",")}`);
     }
     const avatar = url.pathname.match(/^\/api\/avatar\/(\d+)$/);
     if (avatar) {
@@ -66,9 +72,9 @@ export default {
   },
 };
 
-async function cached(request, ctx, ttl, produce) {
+async function cached(request, ctx, ttl, produce, variant = "") {
   const cache = caches.default;
-  const key = new Request(new URL(request.url).origin + new URL(request.url).pathname);
+  const key = new Request(new URL(request.url).origin + new URL(request.url).pathname + variant);
   const hit = await cache.match(key);
   if (hit) return hit;
 
@@ -131,16 +137,17 @@ async function rareIds(request, ctx) {
 }
 
 async function fetchTraders() {
-  const traders = await Promise.all(
-    TRADERS.map(async (id) => {
-      const res = await fetch(`https://users.roblox.com/v1/users/${id}`, { headers: { "user-agent": USER_AGENT } });
-      if (!res.ok) return null;
-      const user = await res.json();
-      if (!user || typeof user.name !== "string") return null;
-      return { id, name: user.name, displayName: String(user.displayName || user.name) };
-    }),
-  );
-  if (traders.some((t) => !t)) return json({ error: "unavailable" }, 502);
+  const res = await fetch("https://users.roblox.com/v1/users", {
+    method: "POST",
+    headers: { "user-agent": USER_AGENT, "content-type": "application/json", accept: "application/json" },
+    body: JSON.stringify({ userIds: TRADERS, excludeBannedUsers: true }),
+  });
+  if (!res.ok) return json({ error: "unavailable" }, 502);
+  const body = await res.json();
+  const traders = (body && Array.isArray(body.data) ? body.data : [])
+    .filter((user) => TRADERS.includes(user.id) && typeof user.name === "string")
+    .map((user) => ({ id: user.id, name: user.name, displayName: String(user.displayName || user.name) }));
+  if (!traders.length) return json({ error: "unavailable" }, 502);
   return json({ traders }, 200);
 }
 

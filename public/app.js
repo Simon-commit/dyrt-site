@@ -1,5 +1,6 @@
 // Fills the RoLens showcases with current data served and cached by this site's own Worker: Rolimon's values for
 // the example offer and the rare items on the home card, and trader names for the example trade list.
+// Also switches the tabs of the example trade list.
 (() => {
   "use strict";
 
@@ -54,6 +55,68 @@
       }
     }
   };
+
+  // Example trade list tabs: switch in place, with the underline gliding to the selected tab.
+  document.querySelectorAll("[data-tabs]").forEach((root) => {
+    const list = root.querySelector('[role="tablist"]');
+    const tabs = [...root.querySelectorAll('[role="tab"]')];
+    const bar = root.querySelector(".tl-bar");
+    const panelOf = (tab) => document.getElementById(tab.getAttribute("aria-controls"));
+    let current = tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true");
+    let timer = 0;
+
+    const place = () => {
+      const tab = tabs[current];
+      bar.style.width = `${tab.offsetWidth}px`;
+      bar.style.transform = `translateX(${tab.offsetLeft}px)`;
+    };
+    const select = (index, focus) => {
+      if (index === current) return;
+      const from = panelOf(tabs[current]);
+      const to = panelOf(tabs[index]);
+      root.dataset.dir = index > current ? "next" : "prev";
+      tabs.forEach((tab, i) => {
+        tab.setAttribute("aria-selected", String(i === index));
+        tab.tabIndex = i === index ? 0 : -1;
+      });
+      if (focus) tabs[index].focus();
+      current = index;
+      place();
+
+      clearTimeout(timer);
+      tabs.forEach((tab) => {
+        const panel = panelOf(tab);
+        if (panel !== from && panel !== to) {
+          panel.hidden = true;
+          panel.classList.remove("is-active", "is-entering", "is-leaving");
+        }
+      });
+      from.classList.remove("is-active", "is-entering");
+      from.classList.add("is-leaving");
+      to.classList.remove("is-leaving");
+      to.hidden = false;
+      to.classList.add("is-active", "is-entering");
+      timer = setTimeout(() => {
+        from.hidden = true;
+        from.classList.remove("is-leaving");
+        to.classList.remove("is-entering");
+      }, 720);
+    };
+
+    tabs.forEach((tab, i) => tab.addEventListener("click", () => select(i, false)));
+    list.addEventListener("keydown", (event) => {
+      const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
+      let next = step ? (current + step + tabs.length) % tabs.length : -1;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      if (next < 0) return;
+      event.preventDefault();
+      select(next, true);
+    });
+    new ResizeObserver(place).observe(list);
+    place();
+    root.classList.add("is-ready");
+  });
 
   // Example trade list: current names from Roblox; avatars that fail keep a neutral circle.
   document.querySelectorAll(".tl-av").forEach((img) => {
