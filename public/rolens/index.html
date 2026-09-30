@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RoLens · dyrt</title>
-<meta name="description" content="RoLens is an open-source Chrome extension that places live Rolimon's and RoUtility values directly inside Roblox trades, item pages and inventories.">
+<title>RoLens: Roblox Trading Extension for Chrome · dyrt</title>
+<meta name="description" content="RoLens is a free, open-source Roblox trading extension for Chrome. Live Rolimon's values, trade previews, alerts and proofs, right inside Roblox trades.">
 <link rel="canonical" href="https://dyrt.io/rolens/">
 <meta name="theme-color" content="#f4f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0f0e" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dyrt.io/rolens/">
 <meta property="og:site_name" content="dyrt">
-<meta property="og:title" content="RoLens · dyrt">
-<meta property="og:description" content="RoLens is an open-source Chrome extension that places live Rolimon's and RoUtility values directly inside Roblox trades, item pages and inventories.">
+<meta property="og:title" content="RoLens: Roblox Trading Extension for Chrome">
+<meta property="og:description" content="RoLens is a free, open-source Roblox trading extension for Chrome. Live Rolimon's values, trade previews, alerts and proofs, right inside Roblox trades.">
 <meta property="og:image" content="https://dyrt.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,6 +26,7 @@
 <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script src="/app.js" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "RoLens", "alternateName": "RoLens: Trade Values for Roblox", "description": "A free, open-source Roblox trading extension for Chrome that shows live Rolimon's and RoUtility values, RAP and USD estimates inside Roblox trades, item pages and inventories, with trade previews, inbound trade alerts, outbound trade tools and trade proofs.", "url": "https://dyrt.io/rolens/", "applicationCategory": "BrowserApplication", "applicationSubCategory": "Browser extension", "operatingSystem": "Chrome", "softwareVersion": "0.15.1", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "image": "https://dyrt.io/og.png", "codeRepository": "https://github.com/Simon-commit/rolens", "author": {"@type": "Organization", "name": "dyrt", "url": "https://dyrt.io/"}, "publisher": {"@type": "Organization", "name": "dyrt", "url": "https://dyrt.io/"}}</script>
 </head>
 <body>
 <svg class="sprite" aria-hidden="true">
@@ -87,10 +88,10 @@
       <div class="hero-copy">
         <div class="product-head">
           <svg class="product-icon" aria-hidden="true"><use href="#i-rolens"/></svg>
-          <p class="eyebrow">Chrome extension · Open source</p>
+          <p class="eyebrow">Roblox trading extension · Open source</p>
         </div>
         <h1 id="hero-title">RoLens</h1>
-        <p class="lede">Live Rolimon's and RoUtility values, placed directly inside Roblox. Values, RAP, demand and USD estimates appear on trades, item pages and inventories, exactly where decisions are made.</p>
+        <p class="lede">The Roblox trading extension for Chrome that places live Rolimon's and RoUtility values directly inside Roblox. Values, RAP, demand and USD estimates appear on trades, item pages and inventories, exactly where decisions are made.</p>
         <div class="actions">
           <a class="btn btn-primary" href="https://github.com/Simon-commit/rolens">
             <svg class="btn-gh" aria-hidden="true"><use href="#i-github"/></svg>
@@ -368,6 +369,30 @@
         <div><dt>Language</dt><dd>TypeScript</dd></div>
         <div><dt>Licence</dt><dd>MIT</dd></div>
         <div><dt>Tests</dt><dd>181 passing</dd></div>
+      </dl>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="section-head">
+        <h2 id="faq-title">Questions</h2>
+      </div>
+      <dl class="qa">
+        <div>
+          <dt>What is RoLens?</dt>
+          <dd>RoLens is a free Roblox trading extension for Google Chrome. It shows live Rolimon's and RoUtility values, RAP, demand and USD estimates on Roblox trades, item pages and inventories, so every offer can be judged without leaving Roblox.</dd>
+        </div>
+        <div>
+          <dt>Is RoLens safe to use?</dt>
+          <dd>RoLens never asks for your password or session cookie, and it never sends, accepts or counters a trade. The only change it can make to your account is cancelling outbound trades you review and confirm. The complete source is public under the MIT licence, and the version submitted to the Chrome Web Store was independently security reviewed. The <a href="/rolens/privacy/">privacy policy</a> lists every request it makes.</dd>
+        </div>
+        <div>
+          <dt>Which values does it use?</dt>
+          <dd>Values, RAP and demand come from Rolimon's, with RoUtility values and USD estimates alongside. Either source can be turned off in the popup.</dd>
+        </div>
+        <div>
+          <dt>Where can I install it?</dt>
+          <dd>RoLens has been submitted to the Chrome Web Store and will be listed there once Google's review is complete. Until then, the complete source is available on <a href="https://github.com/Simon-commit/rolens">GitHub</a>.</dd>
+        </div>
       </dl>
     </section>
 
