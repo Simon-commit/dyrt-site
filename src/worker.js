@@ -8,6 +8,9 @@
 // Images are proxied so visitors never contact Roblox. Only the items and players below are
 // ever requested, and responses are cached at the edge, so Rolimon's and Roblox see at most
 // one request per cache period, whatever the traffic.
+//
+// It also answers byte-range requests for the Crowdfill showcase video. Static assets reply to a
+// Range request with the whole file, and Safari does not play a video without partial responses.
 
 const ITEMS = [1365767, 11748356, 1285307];
 const RARE_NAMES = ["Red Sparkle Time Fedora", "Rainbow Shaggy", "Domino Crown", "The Classic ROBLOX Fedora"];
@@ -24,6 +27,7 @@ const VALUES_TTL = 600; // seconds
 const THUMB_TTL = 86400;
 const PROFILE_TTL = 86400;
 const USER_AGENT = "dyrt.io (+https://dyrt.io)";
+const VIDEO = "/crowdfill/showcase.mp4";
 
 export default {
   async fetch(request, env, ctx) {
@@ -31,6 +35,9 @@ export default {
 
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method not allowed", { status: 405, headers: { allow: "GET, HEAD" } });
+    }
+    if (url.pathname === VIDEO) {
+      return ranged(request, env);
     }
     if (url.pathname === "/api/values") {
       return cached(request, ctx, VALUES_TTL, fetchValues);
@@ -165,6 +172,29 @@ async function fetchImage(metaUrl) {
   return new Response(image.body, {
     headers: { "content-type": type, "x-content-type-options": "nosniff" },
   });
+}
+
+// Serves a static asset with support for a single byte range.
+async function ranged(request, env) {
+  const asset = await env.ASSETS.fetch(new Request(request.url, { method: "GET" }));
+  const headers = new Headers(asset.headers);
+  headers.set("accept-ranges", "bytes");
+  const range = /^bytes=(\d*)-(\d*)$/.exec((request.headers.get("range") || "").trim());
+
+  if (!asset.ok || !range || (!range[1] && !range[2])) {
+    return new Response(request.method === "HEAD" ? null : asset.body, { status: asset.status, headers });
+  }
+  const bytes = await asset.arrayBuffer();
+  const size = bytes.byteLength;
+  // "500-" runs to the end, "-500" is the last 500 bytes.
+  const start = range[1] ? Number(range[1]) : Math.max(0, size - Number(range[2]));
+  const end = range[1] && range[2] ? Math.min(Number(range[2]), size - 1) : size - 1;
+  if (start >= size || start > end) {
+    return new Response(null, { status: 416, headers: { "content-range": `bytes */${size}` } });
+  }
+  headers.set("content-range", `bytes ${start}-${end}/${size}`);
+  headers.delete("content-length");
+  return new Response(request.method === "HEAD" ? null : bytes.slice(start, end + 1), { status: 206, headers });
 }
 
 function json(body, status) {

@@ -741,3 +741,126 @@ span.float-img { visibility: hidden; }
 .shot-item { position: relative; }
 .f-sk { right: 0; top: 2%; width: 22%; z-index: 2; --r: 8deg; }
 .shot-item .float-img { filter: drop-shadow(0 14px 16px rgba(9, 11, 16, 0.45)); }
+
+/* Crowdfill */
+.soon { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+.install > .badge { flex: none; }
+.rules a { color: var(--ink); border-bottom: 1px solid var(--rule-strong); }
+.rules a:hover { border-color: var(--ink); }
+
+/* Crowdfill page: a question leaning towards an answer. Heights come from --h, set per bar by the page's script. */
+.lean-chart {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px;
+  padding: 6px 10px 2px;
+}
+.lean-col { display: grid; gap: 10px; justify-items: center; --h: 0.5; }
+.lean-col:nth-child(1) { --h: 0.067; }
+.lean-col:nth-child(2) { --h: 0.3; }
+.lean-col:nth-child(3) { --h: 0.74; }
+.lean-col:nth-child(4) { --h: 1; }
+.lean-col:nth-child(5) { --h: 0.74; }
+.lean-track {
+  width: 100%; height: 176px;
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 8px;
+}
+.lean-pct {
+  text-align: center;
+  font: 500 12px/1 var(--mono); color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.lean-bar {
+  display: block; flex: none;
+  height: max(3px, calc(var(--h) * (100% - 20px)));
+  border-radius: 7px 7px 3px 3px;
+  background: linear-gradient(180deg, #8b6cf7, #5b5bf6);
+  opacity: 0.55;
+  transition: height 0.4s cubic-bezier(0.22, 0.8, 0.24, 1), opacity 0.2s;
+}
+.lean-col.is-target .lean-bar { opacity: 1; }
+.lean-label { font: 500 12px/1 var(--mono); color: var(--faint); }
+.lean-col.is-target .lean-label, .lean-col.is-target .lean-pct { color: var(--ink); }
+.lean-controls {
+  display: grid; gap: 14px;
+  margin-top: 14px; padding: 18px 10px 4px;
+  border-top: 1px solid var(--rule);
+}
+.lean:not(.is-ready) .lean-controls { display: none; }
+.lean-control {
+  display: grid; grid-template-columns: 104px minmax(0, 1fr) 40px; gap: 12px; align-items: center;
+  font-size: 14px; color: var(--muted);
+}
+.lean-control input { width: 100%; margin: 0; accent-color: #6d5cf7; cursor: pointer; }
+.lean-control output {
+  text-align: right;
+  font: 500 13px/1 var(--mono); color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 560px) {
+  .lean-track { height: 140px; }
+  .lean-control { grid-template-columns: 92px minmax(0, 1fr) 36px; }
+}
+
+/* Crowdfill page: showcase video and themed screenshots */
+.screen video {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  border: 1px solid var(--rule-strong);
+  box-shadow: var(--shadow);
+  background: #090b10;
+}
+.screen picture { display: block; }
+.gallery-cf picture {
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(91, 91, 246, 0.14), transparent 55%),
+    radial-gradient(90% 80% at 100% 100%, rgba(162, 77, 242, 0.14), transparent 60%),
+    var(--sunken);
+}
+.gallery-cf .shot-tall picture img { width: 58%; }
+
+/* Crowdfill home card: a leaning chart beside the extension's panel */
+.media-crowdfill {
+  container-type: inline-size;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(91, 91, 246, 0.14), transparent 55%),
+    radial-gradient(90% 80% at 100% 100%, rgba(162, 77, 242, 0.14), transparent 60%),
+    var(--sunken);
+}
+.cf-stage { position: absolute; inset: 0; }
+.cf-chart {
+  position: absolute; left: 7%; top: 27%; width: 45%;
+  display: grid; gap: 2.4cqw;
+  padding: 2.8cqw 2.8cqw 2.4cqw;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2.4cqw;
+  box-shadow: 0 24px 48px -20px rgba(9, 11, 16, 0.45);
+}
+.cf-chart-title { font: 600 2.5cqw/1.2 var(--body); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cf-chart .lean-chart { gap: 1.6cqw; padding: 0; }
+.cf-chart .lean-col { gap: 1.4cqw; }
+.cf-chart .lean-col:nth-child(1) { --h: 0.06; }
+.cf-chart .lean-col:nth-child(2) { --h: 0.16; }
+.cf-chart .lean-col:nth-child(3) { --h: 0.4; }
+.cf-chart .lean-col:nth-child(4) { --h: 0.76; }
+.cf-chart .lean-col:nth-child(5) { --h: 1; }
+.cf-chart .lean-track { height: 17cqw; }
+.cf-chart .lean-bar { height: max(2px, calc(var(--h) * 100%)); border-radius: 1cqw 1cqw 0.5cqw 0.5cqw; opacity: 1; }
+.cf-chart .lean-label { font-size: 2cqw; }
+.cf-panel { position: absolute; display: block; right: 6%; top: 12%; width: 35%; transition: transform 0.3s ease; }
+.cf-panel img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--rule-strong); border-radius: 12px 12px 0 0;
+  box-shadow: 0 24px 48px -20px rgba(9, 11, 16, 0.45);
+}
+.project:has(.project-link):hover .cf-panel { transform: translateY(-4px); }
+@media (prefers-reduced-motion: reduce) { .cf-panel { transition: none; } }
+
+/* Crowdfill policies: tables and numbered clauses */
+.legal-body ol { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+.legal-body table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.55; }
+.legal-body th, .legal-body td { padding: 10px 16px 10px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.legal-body th { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+.legal-body td:first-child { color: var(--ink); font-weight: 500; }
+.legal-nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 14px; }
+.legal-nav a { color: var(--muted); border-bottom: 1px solid var(--rule-strong); padding-bottom: 1px; }
+.legal-nav a:hover { color: var(--ink); border-color: var(--ink); }

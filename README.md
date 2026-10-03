@@ -1,6 +1,6 @@
 # dyrt
 
-Source for [dyrt.io](https://dyrt.io), Simon's portfolio. Projects include [RoLens](https://github.com/Simon-commit/rolens) and Aurora.
+Source for [dyrt.io](https://dyrt.io), Simon's portfolio. Projects include [RoLens](https://github.com/Simon-commit/rolens), [Crowdfill](https://github.com/Simon-commit/crowdfill) and Aurora.
 
 The site is static HTML and CSS with one small Cloudflare Worker. Every push to `main` is deployed automatically.
 
@@ -9,13 +9,17 @@ The site is static HTML and CSS with one small Cloudflare Worker. Every push to 
 - `public/index.html`: the home page with the project catalogue. To add a project, copy one `<li class="project">` block inside `.catalogue`, and add a page for it under `public/<name>/index.html` if it needs one.
 - `public/rolens/index.html`: the RoLens project page.
 - `public/aurora/index.html`: the Aurora project page, with screenshots in `public/aurora/`.
+- `public/crowdfill/index.html`: the Crowdfill project page, with `demo.js` for its tendency example. The policy pages, screenshots and showcase video beside it are generated from the Crowdfill repository with `npm run site -- <path to this checkout>`, so they are not edited here.
 - `public/`: also holds `styles.css`, `app.js`, the 404 page, the favicon, the social preview image and the self-hosted fonts.
 - `src/worker.js`: serves `public/` and two read-only endpoints for the example trade on the RoLens page.
   - `GET /api/values` returns the current Rolimon's value, RAP and demand for the three showcased items.
   - `GET /api/thumb/:id` returns an item's Roblox thumbnail, for those three items only.
 
   Both are cached at the edge (values for 10 minutes, images for a day), so Rolimon's and Roblox see at most one request per cache period.
+
+  It also answers byte-range requests for the Crowdfill showcase video, which Safari needs to play it.
 - `public/_headers`: security headers, including a strict Content Security Policy.
+- `public/_redirects`: earlier addresses of the Crowdfill policy pages.
 - `wrangler.jsonc`: Worker configuration and the dyrt.io domains.
 
 ## Privacy

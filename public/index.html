@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>dyrt · Software by Simon</title>
-<meta name="description" content="dyrt is the portfolio of Simon, an independent developer building focused software, including RoLens, a Roblox trading extension for Chrome, and the Aurora desktop app.">
+<meta name="description" content="dyrt is the portfolio of Simon, an independent developer building focused software, including RoLens, a Roblox trading extension for Chrome, Crowdfill for Google Forms, and the Aurora desktop app.">
 <link rel="canonical" href="https://dyrt.io/">
 <meta name="theme-color" content="#f4f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0f0e" media="(prefers-color-scheme: dark)">
@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://dyrt.io/">
 <meta property="og:site_name" content="dyrt">
 <meta property="og:title" content="dyrt · Software by Simon">
-<meta property="og:description" content="dyrt is the portfolio of Simon, an independent developer building focused software, including RoLens, a Roblox trading extension for Chrome, and the Aurora desktop app.">
+<meta property="og:description" content="dyrt is the portfolio of Simon, an independent developer building focused software, including RoLens, a Roblox trading extension for Chrome, Crowdfill for Google Forms, and the Aurora desktop app.">
 <meta property="og:image" content="https://dyrt.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -56,6 +56,18 @@
       <path d="M10 23c2.5-4 4.5-5.5 6-5.5s3.5 1.5 6 5.5" stroke-width="2" stroke-opacity="0.6"/>
     </g>
   </symbol>
+  <symbol id="i-crowdfill" viewBox="4 4 120 120">
+    <defs><linearGradient id="cf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b5bf6"/><stop offset="1" stop-color="#a24df2"/></linearGradient></defs>
+    <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#cf)"/>
+    <rect x="44" y="20" width="60" height="76" rx="12" fill="#ffffff" fill-opacity="0.32"/>
+    <rect x="26" y="32" width="62" height="78" rx="12" fill="#ffffff"/>
+    <circle cx="43" cy="53" r="7" fill="#5b5bf6"/>
+    <rect x="56" y="48.5" width="22" height="9" rx="4.5" fill="#c7cbfb"/>
+    <circle cx="43" cy="72" r="7" fill="#a24df2"/>
+    <rect x="56" y="67.5" width="22" height="9" rx="4.5" fill="#e3cdfb"/>
+    <circle cx="43" cy="91" r="7" fill="#5b5bf6"/>
+    <rect x="56" y="86.5" width="15" height="9" rx="4.5" fill="#c7cbfb"/>
+  </symbol>
   <symbol id="i-arrow" viewBox="0 0 16 16">
     <path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
@@ -96,7 +108,7 @@
     <section id="work" class="work" aria-labelledby="work-title">
       <div class="section-head">
         <h2 id="work-title">Work</h2>
-        <span class="count">2 projects</span>
+        <span class="count">3 projects</span>
       </div>
 
       <ul class="catalogue">
@@ -155,6 +167,44 @@
             <span class="project-cta">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </div>
         </li>
+
+        <li class="project">
+          <a class="project-link" href="/crowdfill/" aria-label="Crowdfill, project details"></a>
+          <div class="project-media media-crowdfill">
+            <svg class="media-icon" aria-hidden="true"><use href="#i-crowdfill"/></svg>
+            <div class="cf-stage" aria-hidden="true">
+              <div class="cf-chart">
+                <span class="cf-chart-title">How satisfied were you?</span>
+                <div class="lean-chart">
+                  <div class="lean-col"><div class="lean-track"><span class="lean-bar"></span></div><span class="lean-label">1</span></div>
+                  <div class="lean-col"><div class="lean-track"><span class="lean-bar"></span></div><span class="lean-label">2</span></div>
+                  <div class="lean-col"><div class="lean-track"><span class="lean-bar"></span></div><span class="lean-label">3</span></div>
+                  <div class="lean-col"><div class="lean-track"><span class="lean-bar"></span></div><span class="lean-label">4</span></div>
+                  <div class="lean-col"><div class="lean-track"><span class="lean-bar"></span></div><span class="lean-label">5</span></div>
+                </div>
+              </div>
+              <picture class="cf-panel">
+                <source srcset="/crowdfill/shots/crowd-dark.webp" media="(prefers-color-scheme: dark)">
+                <img src="/crowdfill/shots/crowd-light.webp" alt="" width="840" height="1180" loading="lazy" decoding="async">
+              </picture>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <p class="eyebrow">Google Forms extension</p>
+              <span class="badge">Coming soon</span>
+            </div>
+            <h3>Crowdfill</h3>
+            <p>A Chrome extension that fills Google Forms with realistic responses and lets every question lean the way you choose. Made for testing your own forms and building demo data, with a preview before anything is sent.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>TypeScript</li><li>Chrome MV3</li><li>Preact</li>
+            </ul>
+            <div class="project-ctas">
+              <span class="project-cta">View project <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+              <a class="store-link" href="https://github.com/Simon-commit/crowdfill">Source on GitHub <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </li>
       </ul>
     </section>
 
@@ -166,7 +216,7 @@
       <ul class="rules">
         <li>
           <h3>Open by default</h3>
-          <p>Source code is published wherever possible. RoLens is public under the MIT licence, so anyone can read exactly what it does.</p>
+          <p>Source code is published wherever possible. RoLens and Crowdfill are public under the MIT licence, so anyone can read exactly what they do.</p>
         </li>
         <li>
           <h3>Privacy first</h3>
@@ -192,12 +242,13 @@
       <a href="/#work">Work</a>
       <a href="/rolens/">RoLens</a>
       <a href="/aurora/">Aurora</a>
+      <a href="/crowdfill/">Crowdfill</a>
       <a class="gh-link" href="https://github.com/Simon-commit">
         <svg aria-hidden="true"><use href="#i-github"/></svg>
         <span>Simon-commit</span>
       </a>
     </nav>
-    <p class="foot-legal">© 2026 dyrt. RoLens is not affiliated with Roblox Corporation, Rolimon's or RoUtility.</p>
+    <p class="foot-legal">© 2026 dyrt. RoLens is not affiliated with Roblox Corporation, Rolimon's or RoUtility. Crowdfill is not affiliated with Google.</p>
   </footer>
 </div>
 </body>
