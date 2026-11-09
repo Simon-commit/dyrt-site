@@ -743,8 +743,6 @@ span.float-img { visibility: hidden; }
 .shot-item .float-img { filter: drop-shadow(0 14px 16px rgba(9, 11, 16, 0.45)); }
 
 /* Crowdfill */
-.soon { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
-.install > .badge { flex: none; }
 .rules a { color: var(--ink); border-bottom: 1px solid var(--rule-strong); }
 .rules a:hover { border-color: var(--ink); }
 
