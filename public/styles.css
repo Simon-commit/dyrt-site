@@ -853,6 +853,33 @@ span.float-img { visibility: hidden; }
 .project:has(.project-link):hover .cf-panel { transform: translateY(-4px); }
 @media (prefers-reduced-motion: reduce) { .cf-panel { transition: none; } }
 
+/* Crowdfill page: guides */
+.guides { margin-top: 0; }
+.guides .feature { transition: background-color 0.15s; }
+.guides .feature:hover { background: var(--sunken); }
+.guides .feature:hover h3 { color: var(--accent); }
+.guides .feature:focus-visible { outline-offset: -2px; }
+
+/* Crowdfill guides */
+.guide .legal-head h1 { max-width: 22ch; }
+.guide .legal-meta { max-width: 60ch; font-size: 17px; line-height: 1.6; }
+.guide .legal-body h3 { margin-top: 8px; font-size: 17px; }
+.guide .legal-body ol { padding-left: 22px; }
+.table-scroll { overflow-x: auto; }
+.table-scroll table { min-width: 520px; }
+.guide-shot { margin: 8px 0; display: grid; gap: 10px; justify-items: start; }
+.guide-shot picture { display: block; width: min(100%, 340px); }
+.guide-shot img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--rule-strong); border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.guide-shot figcaption { max-width: 340px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.guide-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.guide-pair .guide-shot picture, .guide-pair .guide-shot figcaption { width: 100%; max-width: none; }
+.guide .install { margin-top: 40px; }
+@media (max-width: 560px) { .guide-pair { grid-template-columns: 1fr; } }
+
 /* Crowdfill policies: tables and numbered clauses */
 .legal-body ol { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
 .legal-body table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.55; }
